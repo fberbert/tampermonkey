@@ -15,40 +15,30 @@
   let escondeFunc;
   let borrado = false;
 
-  console.log('Borrar WhatsApp 3 iniciado!');
-  // 🟢 WHITELIST de nomes que **não devem ser borrados**
+  console.log('Borrar WhatsApp 4 iniciado');
   const whitelist = [
-    "Rebeca",
-    "NBA Brasil",
-    "Elaine",
-    "Luluca"
+    "Gisele Angelo BT",
+    "Grupo XPTO",
+    "Família 🏡",
+    "Lucas Dev"
   ];
 
-  // Função principal
   function borrar(fator = 4) {
-    if (typeof escondeFunc !== 'undefined') {
-      clearTimeout(escondeFunc);
-    }
-
-    // Seleciona todos os contatos visíveis no painel esquerdo
     const itens = document.querySelectorAll('#pane-side [role="listitem"]');
 
     itens.forEach(item => {
-      // Tenta pegar a imagem e o nome dentro do item
       const img = item.querySelector('img');
       const nomeSpan =
-        item.querySelector('.x78zum5 > span') ||  // nome de contatos individuais
-        item.querySelector('._ak8q > span');      // nome de grupos (fallback)
+        item.querySelector('.x78zum5 > span') ||
+        item.querySelector('._ak8q > span');
+
       const ultimaMensagemSpan = item.querySelector('._ak8k span[title]');
 
       if (!nomeSpan) return;
 
       const nome = nomeSpan.innerText.trim();
-
-      // Verifica se o nome está na whitelist
       const isPermitido = whitelist.some(entry => nome === entry);
 
-      // Aplica ou remove blur com base na whitelist
       if (!isPermitido) {
         if (img) img.style.filter = `blur(${fator}px)`;
         nomeSpan.style.filter = `blur(${fator}px)`;
@@ -59,18 +49,36 @@
         if (ultimaMensagemSpan) ultimaMensagemSpan.style.filter = 'none';
       }
     });
-
-    escondeFunc = setInterval(() => {
-      if (typeof esconder === 'function') esconder();
-    }, 1000);
   }
 
-  //  Tecla de atalho Ctrl + Alt + B → toggle do borrado
+  function iniciarObserver() {
+    const pane = document.querySelector('#pane-side');
+    if (!pane) return;
+
+    const observer = new MutationObserver(() => {
+      if (borrado) borrar(4); else borrar(0);
+    });
+
+    observer.observe(pane, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // Tecla de atalho Ctrl + Alt + B para toggle
   document.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.altKey && event.key.toLowerCase() === 'b') {
       borrado = !borrado;
       borrar(borrado ? 4 : 0);
     }
+  });
+
+  // Espera o DOM estar pronto para iniciar
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      iniciarObserver();
+      if (borrado) borrar(4); // reaplica ao carregar se estava ativado
+    }, 2000); // delay para WhatsApp carregar
   });
 
 
