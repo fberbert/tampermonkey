@@ -15,7 +15,7 @@
   let escondeFunc;
   let borrado = false;
 
-  console.log('Borrar WhatsApp 2 iniciado!');
+  console.log('Borrar WhatsApp 3 iniciado!');
   // 🟢 WHITELIST de nomes que **não devem ser borrados**
   const whitelist = [
     "Rebeca",
@@ -60,7 +60,7 @@
       }
     });
 
-    escondeFunc = setTimeout(() => {
+    escondeFunc = setInterval(() => {
       if (typeof esconder === 'function') esconder();
     }, 1000);
   }
