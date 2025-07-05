@@ -39,6 +39,7 @@
       const nomeSpan =
         item.querySelector('.x78zum5 > span') ||  // nome de contatos individuais
         item.querySelector('._ak8q > span');      // nome de grupos (fallback)
+      const ultimaMensagemSpan = item.querySelector('._ak8k span[title]');
 
       if (!nomeSpan) return;
 
@@ -51,9 +52,11 @@
       if (!isPermitido) {
         if (img) img.style.filter = `blur(${fator}px)`;
         nomeSpan.style.filter = `blur(${fator}px)`;
+        if (ultimaMensagemSpan) ultimaMensagemSpan.style.filter = `blur(${fator}px)`;
       } else {
         if (img) img.style.filter = 'none';
         nomeSpan.style.filter = 'none';
+        if (ultimaMensagemSpan) ultimaMensagemSpan.style.filter = 'none';
       }
     });
 
