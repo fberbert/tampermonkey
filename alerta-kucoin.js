@@ -215,7 +215,7 @@
                 right: 10px;
                 z-index: 99999;
                 background-color: rgb(1, 188, 141); /* Cor de fundo da KuCoin */
-                color: rgb(29, 29, 29) !important; /* Cor do texto da KuCoin */
+                color: rgb(29, 29, 29); /* Cor do texto da KuCoin */
                 border: none;
                 padding: 8px 12px;
                 border-radius: 5px;
@@ -393,6 +393,7 @@
 
         #tm-open-config-btn {
             cursor: grab;
+            color: rgb(29, 29, 29) !important; /* Cor do texto do botão de configuração */
         }
     `);
 
