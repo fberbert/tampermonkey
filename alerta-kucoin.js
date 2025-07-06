@@ -39,6 +39,7 @@
     // --- Funções de Utilitário ---
 
     function obterEFormatarPreco() {
+        // Seletor mais robusto, focando no ID do pai e na classe de tamanho de fonte do preço principal.
         const spanPreco = document.querySelector('#ChartHeadArea span.fs-18');
 
         if (spanPreco) {
@@ -63,22 +64,23 @@
     function ativarContextoAudio() {
         if (audioContextAtivado) return;
 
-        const audio = new Audio(SOM_ALERTA_UP);
-        audio.volume = 0.01;
+        // Tenta tocar um som mudo para "ativar" o áudio no navegador
+        const audio = new Audio(SOM_ALERTA_UP); // Usa um dos sons para tentar ativar
+        audio.volume = 0.01; // Quase mudo
         audio.play()
             .then(() => {
                 console.log("Contexto de áudio ativado com sucesso!");
                 audioContextAtivado = true;
-                audio.pause();
+                audio.pause(); // Pausa imediatamente após ativar
                 audio.currentTime = 0;
             })
             .catch(e => {
                 console.warn("Não foi possível ativar o contexto de áudio automaticamente. Necessita interação do usuário:", e);
+                // Permanece audioContextAtivado = false;
             });
     }
 
     // --- Funções de Interface (Modal de Alerta Personalizado) ---
-    // Este modal permanece para os alertas de preço (up/down), mas não será usado para confirmação de salvamento.
 
     function criarModalAlerta() {
         const modalId = 'tm-custom-alert-modal';
@@ -131,12 +133,10 @@
 
         console.log(`Configurações salvas - Superior: "${precoLimiteSuperior}", Inferior: "${precoLimiteInferior}"`);
 
-        // Não exibe mais o modal de "Configurações salvas com sucesso!"
         // As flags de alerta são resetadas para que novos alertas possam disparar
         jaAlertouAcima = false;
         jaAlertouAbaixo = false;
     }
-
 
     // --- Funções de Interface (Modal de Configuração) ---
 
@@ -164,7 +164,6 @@
             const inputInferior = document.getElementById('inputPrecoInferior');
             const btnSalvar = document.getElementById('btnSalvarConfig');
             const btnFechar = document.getElementById('btnFecharConfig');
-
 
             // Carregar valores salvos ao abrir o modal
             inputSuperior.value = GM_getValue(KEY_PRECO_SUPERIOR, '');
@@ -215,8 +214,8 @@
                 top: 10px;
                 right: 10px;
                 z-index: 99999;
-                background-color: rgb(1, 188, 141);
-                color: rgb(29, 29, 29);
+                background-color: rgb(1, 188, 141); /* Cor de fundo da KuCoin */
+                color: rgb(29, 29, 29); /* Cor do texto da KuCoin */
                 border: none;
                 padding: 8px 12px;
                 border-radius: 5px;
@@ -269,7 +268,6 @@
                 elementoArrastavel.style.userSelect = '';
                 elementoArrastavel.style.transition = '';
 
-                // Se não houve movimento significativo, considera um clique
                 if (!moved && clickCallback && Math.abs(e.clientX - startX) < DRAG_THRESHOLD && Math.abs(e.clientY - startY) < DRAG_THRESHOLD) {
                     clickCallback();
                 }
@@ -313,7 +311,7 @@
 
         #tm-config-modal .tm-modal-header {
             padding: 10px;
-            background-color: #333;
+            background-color: #333; /* Cor de fundo do cabeçalho do modal */
             border-bottom: 1px solid #444;
             cursor: move;
             border-top-left-radius: 8px;
@@ -354,12 +352,12 @@
         }
 
         #tm-config-modal #btnSalvarConfig {
-            background-color: rgb(1, 188, 141);
-            color: rgb(29, 29, 29);
+            background-color: rgb(1, 188, 141); /* Cor de fundo do botão Salvar (KuCoin) */
+            color: rgb(29, 29, 29); /* Cor do texto do botão Salvar (KuCoin) */
         }
 
         #tm-config-modal #btnFecharConfig {
-            background-color: #6c757d;
+            background-color: #6c757d; /* Cinza padrão para Fechar */
             color: white;
         }
 
@@ -373,7 +371,7 @@
 
         #tm-custom-alert-modal .tm-modal-content {
             padding: 20px;
-            background-color: #222;
+            background-color: #222; /* Fundo escuro para o conteúdo do alerta */
             border-radius: 8px;
         }
 
@@ -384,8 +382,9 @@
 
         #tm-custom-alert-modal button {
             padding: 10px 20px;
-            background-color: rbga(1, 188, 141, 0.9);
-            color: rbga(29, 29, 29, 0.9);
+            /* Cores para o botão OK do alerta, usando rgba para possível transparência */
+            background-color: rgb(1, 188, 141);
+            color: rgb(29, 29, 29);
             border: none;
             border-radius: 5px;
             cursor: pointer;
