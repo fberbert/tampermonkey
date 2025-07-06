@@ -17,10 +17,11 @@
 
   console.log('Borrar WhatsApp 4 iniciado');
   const whitelist = [
-    "Gisele Angelo BT",
-    "Grupo XPTO",
-    "Família 🏡",
-    "Lucas Dev"
+    "Luluca",
+    "Rafael",
+    "Elaine",
+    "Família",
+    "Sieg",
   ];
 
   function borrar(fator = 4) {
