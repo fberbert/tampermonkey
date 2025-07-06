@@ -393,6 +393,7 @@
 
         #tm-open-config-btn {
             cursor: grab;
+            color: rgb(29, 29, 29) !important; /* Cor do texto do botão de configuração */
         }
     `);
 
