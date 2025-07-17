@@ -150,13 +150,13 @@
         #menudrop ul li ul li a:first-child {
             color: var(--dark-link-color) !important;
         }
-        
+
         #menu {
             background-color: var(--dark-bg-secondary) !important;
             border-color: var(--dark-border-color) !important;
             box-shadow: none !important;
         }
-        
+
         .group_torrent audio_header > td {
             background-color: var(--dark-bg-secondary) !important;
             color: var(--dark-text-primary) !important;
@@ -166,17 +166,21 @@
             background-color: var(--dark-bg-secondary) !important;
             color: var(--dark-text-primary) !important;
         }
-        
+
         blockquote {
             background-color: transparent !important;
         }
-        
+
         .BBCodeToolbar-icon {
             fill: var(--dark-text-primary) !important;
         }
 
         .browse_rating {
             background: transparent !important;
+        }
+
+        #menudrop ul li:hover {
+            background-color: var(--dark-bg-secondary) !important;
         }
     `;
 
